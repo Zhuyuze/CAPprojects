@@ -131,7 +131,7 @@ int main(int argc, char* argv[]) {
 			string r1 = temp.substr(6, 5);
 			string r2 = temp.substr(11, 5);
 			string im = temp.substr(16, 16);
-			command = "ADDI R" + to_string(binaryStringToInt(r1)) + ", R" + to_string(binaryStringToInt(r2)) + ", #"+ to_string(binaryStringToShortInt(im)); // binaryStringToInt to binaryStringToShortInt
+			command = "ADDI R" + to_string(binaryStringToInt(r1)) + ", R" + to_string(binaryStringToInt(r2)) + ", #"+ to_string(binaryStringToInt(im));
 			
 		} else if (opcode == "010001") { // ANDI
 			string r1 = temp.substr(6, 5);
@@ -238,7 +238,7 @@ int main(int argc, char* argv[]) {
 			string r1 = temp.substr(6, 5);
 			string r2 = temp.substr(11, 5);
 			string r3 = temp.substr(16, 5);
-			if (R[binaryStringToInt(r2)] >= 0) {// > to >=
+			if (R[binaryStringToInt(r2)] > 0) {
 				R[binaryStringToInt(r1)] = R[binaryStringToInt(r2)] >> binaryStringToInt(r3);
 			} else {
 				if (binaryStringToInt(r3) == 0) {
@@ -296,20 +296,21 @@ int main(int argc, char* argv[]) {
 		*/
 		
 		outputS << "--------------------" << endl;
-		outputS << "Cycle " << ct << ":\t" << i << "\t" << disassemblyStore[i] << endl << endl;
+		outputS << "Cycle " << ct << ":\t" << i << "\t" << disassemblyStore[i] << endl;
+		//outputS << "Cycle " << ct << ":\t" << i << "\t" << disassemblyStore[i] << endl << endl;
 		outputS << "Registers" << endl;
 		outputS << "R00:\t" << R[0] << "\t" << R[1] << "\t" << R[2] << "\t" << R[3] << "\t" << R[4] << "\t" << R[5] << "\t" << R[6] << "\t" << R[7] << endl;
 		outputS << "R08:\t" << R[8] << "\t" << R[9] << "\t" << R[10] << "\t" << R[11] << "\t" << R[12] << "\t" << R[13] << "\t" << R[14] << "\t" << R[15] << endl;
 		outputS << "R16:\t" << R[16] << "\t" << R[17] << "\t" << R[18] << "\t" << R[19] << "\t" << R[20] << "\t" << R[21] << "\t" << R[22] << "\t" << R[23] << endl;
 		outputS << "R24:\t" << R[24] << "\t" << R[25] << "\t" << R[26] << "\t" << R[27] << "\t" << R[28] << "\t" << R[29] << "\t" << R[30] << "\t" << R[31] << endl;
-		outputS << endl;
+		//outputS << endl;
 		outputS << "Data" << endl;
 		for (int j = mark; j < counter; j += 32) {
 			outputS << j << ":";
 			for (int k = 0; k < 8; k++) outputS << "\t" << D[j + 4 * k];
 			outputS << endl;
 		}
-		if (disassemblyStore[i] != "BREAK") outputS << endl;
+		//if (disassemblyStore[i] != "BREAK") outputS << endl;
 		
 		i = nexti;
 	}
